@@ -72,7 +72,7 @@ async function Fun_WelcomeAgent(agent, req, res, mensage = null) {
                 lifespan: 1
             });
             var rem_mens = dialog.mensaje('menu_dirigido', funcion.conver_name(data_context.name));
-            if(mensage != null){
+            if (mensage != null) {
                 rem_mens = mensage;
             }
             return agent.add(rem_mens);
@@ -101,7 +101,7 @@ async function Fun_WelcomeAgent(agent, req, res, mensage = null) {
                     name: 'sol_datos_usuario',
                     lifespan: 1
                 });
-                return agent.add(dialog.mensaje('bienvenida')+'\n'+dialog.mensaje('sol_cedula'));
+                return agent.add(dialog.mensaje('bienvenida') + '\n' + dialog.mensaje('sol_cedula'));
             }
         }
     } catch (error) {
@@ -280,20 +280,20 @@ async function Func_MisTramites(agent, req, res, key_example = null) {
                     return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                 }
                 example.forEach((element, index) => {
-                    msger = msger+'*#'+(index+1) +'* - ' + element['nombresolicitud']+
-                    '\nFecha de solicitúd: '+element['fecha_solicitud'];
+                    msger = msger + '*#' + (index + 1) + '* - ' + element['nombresolicitud'] +
+                        '\nFecha de solicitúd: ' + element['fecha_solicitud'];
 
-                    if(element['state_documento'] != null ){
-                        msger = msger+'\nFecha de vencimiento: '+element['fecha_vencimiento']
-                        +'\nEstado: '+element['state_documento'];
-                    }else{
-                        msger = msger+'\nEstado: '+element['estado'];
-                        if(element['url2'] != null){
-                            msger = msger+'\nFecha de vencimiento: '+element['fecha_vencimiento']+
-                            '\nVer documento: '+element['url2'];
+                    if (element['state_documento'] != null) {
+                        msger = msger + '\nFecha de vencimiento: ' + element['fecha_vencimiento']
+                            + '\nEstado: ' + element['state_documento'];
+                    } else {
+                        msger = msger + '\nEstado: ' + element['estado'];
+                        if (element['url2'] != null) {
+                            msger = msger + '\nFecha de vencimiento: ' + element['fecha_vencimiento'] +
+                                '\nVer documento: ' + element['url2'];
                         }
                     }
-                    msger = msger +'\n\n'
+                    msger = msger + '\n\n'
                 });
                 agent.add(msger);
                 agent.context.set({
@@ -319,10 +319,10 @@ async function Func_HistorialTramite(agent, req, res, key_example = null) {
     try {
         let data_context = await ValidateDataUserContext(agent);
         if (data_context) {
-            if(key_example == 2){
+            if (key_example == 2) {
                 return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
             }
-            if(key_example == 1){
+            if (key_example == 1) {
                 agent.context.set({ name: '0-Bienvenida-MisTramites-followup', lifespan: 1 });
                 return agent.add(dialog.mensaje('mis_cer92'));
             }
@@ -335,21 +335,21 @@ async function Func_HistorialTramite(agent, req, res, key_example = null) {
                     let legion = await funcion.GetHistorialTramites(data_context.cedula, Contx.parameters.numero_tramite);
                     if (legion['ok'] == true) {
                         var msger = '';
-                        if(legion['tramite'] != undefined){
-                            msger = msger + '*HISTORIAL - '+legion['tramite']+'*';
-                            var example = legion['data'];4
+                        if (legion['tramite'] != undefined) {
+                            msger = msger + '*HISTORIAL - ' + legion['tramite'] + '*';
+                            var example = legion['data']; 4
                             if (example.length == 0) {
-                                agent.add(msger +'\nLo siento, no encontré ningúna información del trámite solicitado.');
+                                agent.add(msger + '\nLo siento, no encontré ningúna información del trámite solicitado.');
                                 return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                             }
                             example.forEach((element, index) => {
-                                msger = msger+'\n\nFecha: '+element['registro']+
-                                '\nEstado: '+ element['estado'];
-                                if(element['observacion']){
-                                    msger = msger+'\nObservación: '+element['observacion'];
+                                msger = msger + '\n\nFecha: ' + element['registro'] +
+                                    '\nEstado: ' + element['estado'];
+                                if (element['observacion']) {
+                                    msger = msger + '\nObservación: ' + element['observacion'];
                                 }
                             });
-                        }else{
+                        } else {
                             agent.add(legion['msg']);
                             return Func_HistorialTramite(agent, req, res, 1);
                         }
@@ -381,12 +381,12 @@ async function Fun_QueHacesFunction(agent, req, res, vari = null) {
             let legion = await funcion.ConsultaNoticias();
             if (legion['ok'] == true) {
                 var szar = Math.floor(Math.random() * legion['data'].length);
-                var mesge = dialog.mensaje('haceres_1', '*'+legion['data'][szar]['titulo']+'*\nQue tal si revisas un poco: 🧐🙃\n'+legion['data'][szar]['link_facebook']);
-                if(vari == 1){
-                    mesge = dialog.mensaje('haceres_2', funcion.conver_name(data_context.name), '*'+legion['data'][szar]['titulo']+'*\nQue tal si revisas un poco:🧐🙃\n'+legion['data'][szar]['link_facebook']);
+                var mesge = dialog.mensaje('haceres_1', '*' + legion['data'][szar]['titulo'] + '*\nQue tal si revisas un poco: 🧐🙃\n' + legion['data'][szar]['link_facebook']);
+                if (vari == 1) {
+                    mesge = dialog.mensaje('haceres_2', funcion.conver_name(data_context.name), '*' + legion['data'][szar]['titulo'] + '*\nQue tal si revisas un poco:🧐🙃\n' + legion['data'][szar]['link_facebook']);
                 }
                 return agent.add(mesge);
-            }else{
+            } else {
                 return ResolveDefauld(agent);
             }
         } else {
@@ -450,7 +450,7 @@ async function Fun_ConsultaPredios(agent, req, res) {
     }
 }
 
-async function Fun_RetornarAlinicio(agent, req, res, name) {
+async function Fun_RetornarAlinicio(agent, req, res, name, text = "") {
     agent.context.set({
         name: '0-Bienvenida-followup',
         lifespan: 1
@@ -459,7 +459,7 @@ async function Fun_RetornarAlinicio(agent, req, res, name) {
         name: 'inicial_context',
         lifespan: 1
     });
-    return agent.add(dialog.mensaje('retorno_inicio'));
+    return agent.add(text + req + '\n\n' + dialog.mensaje('retorno_inicio'));
 }
 
 async function Fun_ListarMenu(agent, req, res, inva = null) {
@@ -467,7 +467,7 @@ async function Fun_ListarMenu(agent, req, res, inva = null) {
         let data_context = await ValidateDataUserContext(agent);
         if (data_context) {
             console.log(data_context);
-            if(inva == 1){
+            if (inva == 1) {
                 return agent.add(dialog.mensaje('despedida_alt', funcion.conver_name(data_context.name)));
             }
             agent.context.set({
@@ -497,15 +497,15 @@ async function Fun_ConsultarOtrasClavesCatastrales(agent, req, res, tipo) {
                 if (Contx != null && Contx != NaN && Contx != undefined) {
                     if (Contx.parameters.cedula_otro != null && Contx.parameters.cedula_otro != "") {
                         return Fun_ConsultarClavesCatastrales(agent, req, res, Contx.parameters.cedula_otro);
-                    }else{
+                    } else {
                         return Fun_ConfirmarConsultarClavesCatastrales(agent, req, res);
                     }
                 } else {
                     return Fun_ConfirmarConsultarClavesCatastrales(agent, req, res);
                 }
-            }else if(tipo == 3){
+            } else if (tipo == 3) {
                 return agent.add(dialog.mensaje('sol_data_clave_catastral'));
-            }else if(tipo == 4){
+            } else if (tipo == 4) {
                 console.log('todo bien');
                 var Contx = agent.context.get('data_clave');
                 if (Contx == null || Contx == NaN || Contx == undefined) {
@@ -514,7 +514,7 @@ async function Fun_ConsultarOtrasClavesCatastrales(agent, req, res, tipo) {
                 if (Contx != null && Contx != NaN && Contx != undefined) {
                     if (Contx.parameters.clave_catast != null && Contx.parameters.clave_catast != "") {
                         return Fun_ConsultarClavesCatastrales(agent, req, res, Contx.parameters.clave_catast, 1);
-                    }else{
+                    } else {
                         return Fun_ConfirmarConsultarClavesCatastrales(agent, req, res);
                     }
                 } else {
@@ -655,39 +655,44 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                 }
                 const regex = /^[0-9]*$/;
                 _cedula = _cedula.replace(/-/g, "");
-                if (regex.test(_cedula) ) {
+                if (regex.test(_cedula)) {
                     console.log('legion')
                     let legion = await funcion.ConsultaClaves(_cedula, nuevo);
                     console.log(legion)
                     if (legion['ok'] == true) {
                         let coun = legion['data'].length;
+                        let mensjae_predios = '';
                         legion['data'].forEach((element, index) => {
                             console.log(element);
                             var rec = element['valor']['boot']['anteriores'];
                             if (element['valor']['boot']['anteriores'] != 'Recaudación al día') {
                                 rec = rec + '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
                             }
-                            if (index == (coun - 1)) { 
-                                console.log("index 11")
+                            if (mensjae_predios.length > 0) {
+                                mensjae_predios += '\n\n';
+                            }
+                            if (index == (coun - 1)) {
+                                mensjae_predios += element['text'] + '\n' + element['direccion'] + '\n' + rec;
                                 // agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
-                                agent.add(element['text'] + '\n' + element['direccion']);
-                                setTimeout(() => {
-                                    console.log("espere y no llego");
-                                    return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
-                                }, 1000);
+                                // return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                             } else {
-                                console.log("index 12")
-                                agent.add(element['text'] + '\n' + funcion.conver_capitalice(element['direccion']) + '\n' + rec);
+                                mensjae_predios += element['text'] + '\n' + funcion.conver_capitalice(element['direccion']) + '\n' + rec;
+                                // agent.add(element['text'] + '\n' + funcion.conver_capitalice(element['direccion']) + '\n' + rec);
                             }
                         });
+
+                        if (mensjae_predios.length > 0) {
+                            console.log("lealtad");
+                            return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name), mensjae_predios);
+                        }
                     } else {
                         agent.add(funcion.conver_name(data_context.name) + ', ' + legion['msg']);
                         return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                     }
                 } else {
-                    if(nuevo == 1){
+                    if (nuevo == 1) {
                         agent.add('La clave catastral ingresada no es válida');
-                    }else{
+                    } else {
                         agent.add('El número de cédula ingresado no es válido');
                     }
                     return Fun_ConfirmarConsultarClavesCatastrales(agent, req, res);
