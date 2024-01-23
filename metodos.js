@@ -669,7 +669,8 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                             }
                             if (index == (coun - 1)) { 
                                 console.log("index 11")
-                                agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
+                                // agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
+                                agent.add(element['text'] + '\n' + element['direccion']);
                                 return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                             } else {
                                 console.log("index 12")
