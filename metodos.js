@@ -662,15 +662,17 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                     if (legion['ok'] == true) {
                         let coun = legion['data'].length;
                         legion['data'].forEach((element, index) => {
-                            console.log(element['valor'])
+                            console.log(element);
                             var rec = element['valor']['boot']['anteriores'];
                             if (element['valor']['boot']['anteriores'] != 'Recaudación al día') {
                                 rec = rec + '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
                             }
                             if (index == (coun - 1)) {
+                                console.log("index 11")
                                 agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
                                 return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                             } else {
+                                console.log("index 12")
                                 agent.add(element['text'] + '\n' + funcion.conver_capitalice(element['direccion']) + '\n' + rec);
                             }
                         });
@@ -691,6 +693,8 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
             return Fun_WelcomeAgent(agent, req, res);
         }
     } catch (error) {
+        console.log("error");
+        console.log(error);
         return ResolveDefauld(agent);
     }
 }
