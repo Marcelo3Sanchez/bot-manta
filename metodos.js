@@ -664,20 +664,27 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                         let mensjae_predios = '';
                         legion['data'].forEach((element, index) => {
                             var rec = element['valor']['boot']['anteriores'];
-                            if (element['valor']['boot']['anteriores'] != 'Recaudación al día') {
-                                rec = element['valor']['boot']['anteriores'] + '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
+
+                            if (element['valor']['boot']['total'] != null) {
+                                if (element['valor']['boot']['anteriores'] == 'Recaudación al día') {
+                                    rec = '';
+                                }else{
+                                    rec += '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
+                                }
+
                             }
                             if (mensjae_predios.length > 0) {
                                 mensjae_predios += '\n\n';
                             }
-                            if (index == (coun - 1)) {
-                                mensjae_predios += element['text'] + '\n' + element['direccion'] + '\n' + rec;
-                                // agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
-                                // return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
-                            } else {
-                                mensjae_predios += element['text'] + '\n' + funcion.conver_capitalice(element['direccion']) + '\n' + rec;
-                                // agent.add(element['text'] + '\n' +   funcion.conver_capitalice(element['direccion']) + '\n' + rec);
-                            }
+                            mensjae_predios += element['text'] + '\n' + element['direccion'] + '\n' + rec;
+                            // if (index == (coun - 1)) {
+                            //     mensjae_predios += element['text'] + '\n' + element['direccion'] + '\n' + rec;
+                            //     // agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
+                            //     // return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
+                            // } else {
+                            //     mensjae_predios += element['text'] + '\n' + element['direccion'] + '\n' + rec;
+                            //     // agent.add(element['text'] + '\n' +   funcion.conver_capitalice(element['direccion']) + '\n' + rec);
+                            // }
                         });
 
                         if (mensjae_predios.length > 0) {
