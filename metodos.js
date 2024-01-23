@@ -663,10 +663,9 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                         let coun = legion['data'].length;
                         let mensjae_predios = '';
                         legion['data'].forEach((element, index) => {
-                            console.log(element);
                             var rec = element['valor']['boot']['anteriores'];
                             if (element['valor']['boot']['anteriores'] != 'Recaudación al día') {
-                                rec = rec + '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
+                                rec = element['valor']['boot']['anteriores'] + '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
                             }
                             if (mensjae_predios.length > 0) {
                                 mensjae_predios += '\n\n';
@@ -677,14 +676,14 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                                 // return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                             } else {
                                 mensjae_predios += element['text'] + '\n' + funcion.conver_capitalice(element['direccion']) + '\n' + rec;
-                                // agent.add(element['text'] + '\n' + funcion.conver_capitalice(element['direccion']) + '\n' + rec);
+                                // agent.add(element['text'] + '\n' +   funcion.conver_capitalice(element['direccion']) + '\n' + rec);
                             }
                         });
 
                         if (mensjae_predios.length > 0) {
-                            console.log("lealtad");
-                            return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name), mensjae_predios);
+                            agent.add(mensjae_predios);
                         }
+                        return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                     } else {
                         agent.add(funcion.conver_name(data_context.name) + ', ' + legion['msg']);
                         return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
