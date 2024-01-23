@@ -667,7 +667,7 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                             if (element['valor']['boot']['anteriores'] != 'Recaudación al día') {
                                 rec = rec + '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
                             }
-                            if (index == (coun - 1)) {
+                            if (index == (coun - 1)) { 
                                 console.log("index 11")
                                 agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
                                 return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
