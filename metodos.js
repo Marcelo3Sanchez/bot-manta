@@ -672,6 +672,7 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
                                 // agent.add(element['text'] + '\n' + element['direccion'] + '\n' + rec);
                                 agent.add(element['text'] + '\n' + element['direccion']);
                                 setInterval(() => {
+                                    console.log("espere y no llego");
                                     return Fun_RetornarAlinicio(agent, req, res, funcion.conver_name(data_context.name));
                                 }, 1000);
                             } else {
