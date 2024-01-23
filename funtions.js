@@ -165,6 +165,8 @@ async function ConsultaClaves(cedula, chang = null){
                     array['msg'] =  'la clave catastral '+cedula+' no existe en los registros del GAD MANTA';
                 }
             }
+            console.log("array procedure server");
+            console.log(array);
             resolve(array);
         }).catch(function (error) {
             array['msg'] = error;
