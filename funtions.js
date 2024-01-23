@@ -1,7 +1,7 @@
 const { error } = require('actions-on-google/dist/common');
 const axios= require('axios');
 const URLIC = 'https://sistemasic.manta.gob.ec/';
-const URLPC = 'http://mantaentusmanos.test/';
+const URLPC = 'https://portalciudadano.manta.gob.ec/';
 // const URLPC = 'https://portalciudadano.manta.gob.ec/';
 const { WebhookClient } = require("dialogflow-fulfillment");
 
