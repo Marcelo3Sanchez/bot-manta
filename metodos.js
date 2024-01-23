@@ -459,7 +459,7 @@ async function Fun_RetornarAlinicio(agent, req, res, name, text = "") {
         name: 'inicial_context',
         lifespan: 1
     });
-    return agent.add(text + req + '\n\n' + dialog.mensaje('retorno_inicio'));
+    return agent.add(req + '\n\n' + dialog.mensaje('retorno_inicio'));
 }
 
 async function Fun_ListarMenu(agent, req, res, inva = null) {
