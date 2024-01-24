@@ -667,11 +667,10 @@ async function Fun_ConsultarClavesCatastrales(agent, req, res, _cedula = null, n
 
                             if (element['valor']['boot']['total'] != null) {
                                 if (element['valor']['boot']['anteriores'] == 'Recaudación al día') {
-                                    rec = '';
+                                    rec = element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total'];
                                 }else{
-                                    rec += '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total']
+                                    rec += '\n' + element['valor']['boot']['actual'] + '\n' + element['valor']['boot']['total'];
                                 }
-
                             }
                             if (mensjae_predios.length > 0) {
                                 mensjae_predios += '\n\n';
